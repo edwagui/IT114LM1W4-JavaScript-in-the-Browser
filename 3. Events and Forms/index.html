@@ -31,12 +31,32 @@
 <!-- Add an inline event handler that logs "From inline event hanlder" when the button is clicked -->
 <!-- Resource: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#inline_event_handlers_%E2%80%94_dont_use_these
             - See other event listener mechanisms section -->
-<button>Call inline event handler</button>
+    <script>
+        function ConsoleHi(){
+            console.log("Hello 3.2! From inline event handler");
+        }
+    </script>
+<button onclick = "ConsoleHi()">Call inline event handler</button>
 
 <!-- Todo 3.3a Create a button with the text "Call addEventListener" -->
-<button>Call addEventListener</button>
+<button id="checker">Call addEventListener</button>
 
 <!-- Todo 3.4a Create a form that accepts the first name and last name of the user -->
+<form id="name-vals">
+    <div>
+        <label for="fName">Given Name: </label>
+        <input type="text" id="fName">
+    </div>
+    <div>
+        <label for="lName">Surname: </label>
+        <input type="text" id="lName">
+    </div>
+    <div>
+        <button id="submit">Submit</button>
+    </div>
+    
+</form>
+
 
 <div>
     <h4>Todo 3.5</h4>
@@ -54,29 +74,51 @@
     <script>
         // Todo 3.1 When the page has loaded, log "The page has loaded"
         // Resource: https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
-
+        window.addEventListener("load",(notify) => {
+            console.log("The page has loaded");
+        })
         // Todo 3.3b Add an event handler for the button created in 2.3a.
         //          The event handler should log "From addEventListener" when the button is clicked
         // Resource: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#using_addeventlistener
         //          - See Using addEventListener() section
-
+        const fN_input = document.getElementById("fName");
+        const lN_input = document.getElementById("lName");
+        document.getElementById("submit").addEventListener("click", (s) => {
+            s.preventDefault();
+            console.log({
+                firstName: fN_input.value,
+                lastName: lN_input.value,
+                message: "From addEventListener"
+            })
+        })
         // Checkpoint 3.1 What is the difference between inline event handlers and addEventListener? When should you use one over the other?
-        // Answer: 
+        // Answer: I guess, addEventHandlers can be useful for organizing code throug external js files. Inline event handlers can be used for sites with fewer events.
 
         const results = []
         // Todo 3.3b When the user presses the submit form button, append the contents of the form to results.
         //          Then, display the content of results
         // Resource: https://stackoverflow.com/questions/11563638/how-do-i-get-the-value-of-text-input-field-using-javascript
         
-        // Todo 3.5 add event listenders for the grandparent, parent, and child divs. 
+        // Todo 3.5 add event listeners for the grandparent, parent, and child divs. 
         //          When clicked, the grandparent, parent, and child should log "Grandparent", "Parent", and "Child" respectively
         // Resource: https://youtu.be/XF1_MlZ5l6M?si=QrNjKXg-xXV6yghW @ 4:00 of the video
         const grandparent = document.querySelector(".grandparent")
         const parent = document.querySelector(".parent")
         const child = document.querySelector(".child")
 
+        grandparent.addEventListener("click",(g) => {
+            console.log("grandparent");
+        })
+        parent.addEventListener("click",(p) => {
+            console.log("parent");
+        })
+        child.addEventListener("click",(c) => {
+            console.log("child");
+        })
         // Checkpoint 3.2 What is event bubbling? How was it shown in Todo 3.5?
-        // Answer: 
+        // Answer: The concepts applies to overlapping elements that have their own events handling.
+        //In the case of 3.5, green overlaps with blue which also overlaps with red.
+        //Bubbling happens in this case because the child event handler also triggers the event for the other two as they overlap.
         
         // Bonus Todo 3.6 Change your code in the previous todo such that "grandparent" is displayed first
 
