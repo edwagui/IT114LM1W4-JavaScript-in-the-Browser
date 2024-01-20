@@ -108,11 +108,12 @@
 
         grandparent.addEventListener("click",(g) => {
             console.log("grandparent");
-        })
+        },{capture:true})
         parent.addEventListener("click",(p) => {
             console.log("parent");
         })
         child.addEventListener("click",(c) => {
+            c.stopPropagation();
             console.log("child");
         })
         // Checkpoint 3.2 What is event bubbling? How was it shown in Todo 3.5?
